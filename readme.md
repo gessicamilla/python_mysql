@@ -103,7 +103,7 @@ cursor.execute("insert into clientes(nome_cliente,email,telefone)values('"+nome+
 # Confirmar a inserção dos dados na tabela
 print(cx.commit())
 ```
-#### Arquivo de atualização
+#### Arquivo de atualização: up_clientes.py
 
 ```python
 import mysql.connector as mc
@@ -137,4 +137,33 @@ else:
     print("Opção inválida!")
 
 cx.commit()
+```
+
+#### Arquivo para deletar: del_clientes.py
+
+```python
+import mysql.connector as mc
+import os
+con = mc.connect(
+    host = "127.0.0.1",
+    port = "3784",
+    user = "root",
+    password = "senac@123",
+    database = "banco"
+)
+
+os.system("cls")
+
+cursor = con.cursor()
+cursor.execute("Select * from clientes")
+for c in cursor:
+    print(c)
+
+id = input("Digite o id do cliente que deseja apagar: ")
+rs = input("Você realmente deseja apagar este cliente. Digite (S ou N): ")
+if(rs == "s" or rs == "S"):
+    cursor.execute("delete from clientes where clientes_id="+id)
+    con.commit()
+else:
+    print("------------- Opção inválida -----------------")
 ```
